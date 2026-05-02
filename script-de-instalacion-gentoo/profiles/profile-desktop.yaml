@@ -1,0 +1,90 @@
+# Gentoo Installer Profile — Desktop Workstation
+# Usage: python3 main.py --profile profile-desktop.yaml
+
+hostname: "gentoo"
+init_system: "openrc"
+
+# Time & Language
+timezone: "America/Mexico_City"
+locale: "es_MX.UTF-8"
+keymap: "us"
+hwclock_utc: true
+
+# Target disk (auto-detected if empty)
+target_disk: ""
+efi: true
+
+# Partitioning (auto if empty)
+partitions:
+  - mount: "/boot/efi"
+    size: "512M"
+    fs: "vfat"
+    flags: ["boot", "esp"]
+  - mount: "/boot"
+    size: "1G"
+    fs: "ext4"
+  - mount: "swap"
+    size: "32G"
+    fs: "swap"
+  - mount: "/"
+    size: "100%"
+    fs: "ext4"
+
+# Stage3
+stage3_profile: ""  # Auto-detect
+mirror: ""  # Auto-select
+
+# Portage
+portage_profile: "default/linux/amd64/23.0/desktop"
+make_conf:
+  COMMON_FLAGS: "-O2 -pipe -march=native"
+  MAKEOPTS: "-j13"
+  USE: "wayland elogind pulseaudio bluetooth -systemd -consolekit"
+  GRUB_PLATFORMS: "efi-64"
+
+# Kernel
+kernel:
+  type: "gentoo-sources"
+  method: "genkernel"
+  params:
+    - "quiet"
+    - "splash"
+    - "nvidia-drm.modeset=1"
+
+# Desktop Environment
+desktop: "hyprland"  # kde, gnome, xfce, hyprland, qtile, none
+
+# Drivers
+drivers: "auto"  # nvidia, amdgpu, intel, auto
+
+# Network
+network:
+  type: "dhcp"
+  iface: ""
+
+# Users
+root_password: ""  # Set interactively
+users:
+  - username: "isra"
+    password: ""  # Set interactively
+    groups:
+      - "wheel"
+      - "video"
+      - "audio"
+      - "plugdev"
+      - "input"
+      - "kvm"
+    shell: "/bin/zsh"
+
+# Bootloader
+bootloader: "grub"
+
+# Extra packages
+packages:
+  - "app-editors/neovim"
+  - "sys-process/htop"
+  - "net-misc/curl"
+  - "app-arch/unzip"
+  - "media-fonts/noto"
+  - "media-fonts/jetbrains-mono"
+  - "x11-terms/kitty"
