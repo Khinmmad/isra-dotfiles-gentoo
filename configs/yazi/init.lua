@@ -1,0 +1,1 @@
+-- Iconos por defecto de yazi

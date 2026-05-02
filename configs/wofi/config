@@ -1,0 +1,7 @@
+width=400
+height=300
+location=center
+show=drun
+prompt=Power
+allow_images=true
+term=kitty

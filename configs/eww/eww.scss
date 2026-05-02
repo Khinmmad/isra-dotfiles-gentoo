@@ -1,0 +1,239 @@
+.volume-box {
+  background: rgba(20, 60, 120, 0.75);
+  border: 1px solid rgba(100, 180, 255, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  color: #cdd6f4;
+  font-family: "JetBrainsMono Nerd Font";
+}
+
+.vol-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.vol-icon {
+  font-size: 18px;
+  color: #89dceb;
+}
+
+.vol-slider trough {
+  background: rgba(100, 180, 255, 0.2);
+  border-radius: 10px;
+  min-height: 6px;
+}
+
+.vol-slider trough highlight {
+  background: rgba(100, 180, 255, 0.8);
+  border-radius: 10px;
+}
+
+.vol-slider slider {
+  background: #ffffff;
+  border-radius: 50%;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.device-btn {
+  background: rgba(100, 180, 255, 0.1);
+  border: 1px solid rgba(100, 180, 255, 0.2);
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: #cdd6f4;
+  margin: 4px 0;
+}
+
+.device-btn:hover {
+  background: rgba(100, 180, 255, 0.25);
+}
+
+.music-box {
+  background: rgba(20, 60, 120, 0.80);
+  border: 1px solid rgba(100, 180, 255, 0.3);
+  border-radius: 16px;
+  padding: 16px;
+  color: #cdd6f4;
+  font-family: "JetBrainsMono Nerd Font";
+}
+
+.cover {
+  border-radius: 8px;
+  min-width: 80px;
+  min-height: 80px;
+}
+
+.music-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.music-artist {
+  font-size: 12px;
+  color: #89b4fa;
+}
+
+.music-progress trough {
+  background: rgba(100, 180, 255, 0.2);
+  border-radius: 10px;
+  min-height: 4px;
+}
+
+.music-progress trough highlight {
+  background: rgba(100, 180, 255, 0.8);
+  border-radius: 10px;
+}
+
+.music-progress slider {
+  background: #ffffff;
+  border-radius: 50%;
+  min-width: 12px;
+  min-height: 12px;
+}
+
+.ctrl-btn {
+  background: rgba(100, 180, 255, 0.15);
+  border: 1px solid rgba(100, 180, 255, 0.3);
+  border-radius: 50%;
+  color: #cdd6f4;
+  font-size: 20px;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.ctrl-btn:hover {
+  background: rgba(100, 180, 255, 0.35);
+}
+
+.play-btn {
+  font-size: 24px;
+  min-width: 50px;
+  min-height: 50px;
+  color: #89b4fa;
+}
+
+.vol-icon {
+  font-size: 16px;
+  color: #89dceb;
+}
+
+.vol-slider trough {
+  background: rgba(100, 180, 255, 0.2);
+  border-radius: 10px;
+  min-height: 4px;
+}
+
+.vol-slider trough highlight {
+  background: rgba(100, 180, 255, 0.6);
+  border-radius: 10px;
+}
+
+
+.sidebar-box {
+  background: rgba(15, 40, 90, 0.85);
+  border-right: 1px solid rgba(100, 180, 255, 0.2);
+  padding: 20px 16px;
+  color: #cdd6f4;
+  font-family: "JetBrainsMono Nerd Font";
+}
+
+.sb-time-box {
+  margin-top: 10px;
+}
+
+.sb-time {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffffff;
+  halign: center;
+}
+
+.sb-date {
+  font-size: 14px;
+  color: #89b4fa;
+}
+
+.sb-separator {
+  background: rgba(100, 180, 255, 0.15);
+  min-height: 1px;
+  margin: 4px 0;
+}
+
+.sb-section-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #89b4fa;
+  margin-bottom: 6px;
+}
+
+/* Clima */
+.sb-weather {
+  background: rgba(30, 80, 160, 0.4);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.weather-icon { font-size: 36px; }
+.weather-temp { font-size: 24px; font-weight: bold; color: #ffffff; }
+.weather-desc { font-size: 12px; color: #89dceb; }
+.weather-detail { font-size: 12px; color: #cdd6f4; }
+
+/* Notificaciones */
+.sb-notifs {
+  background: rgba(30, 80, 160, 0.4);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.notif-item {
+  background: rgba(100, 180, 255, 0.1);
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin: 2px 0;
+}
+
+.notif-title {
+  font-size: 12px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.notif-body {
+  font-size: 11px;
+  color: #a6adc8;
+}
+
+.sb-clear-btn {
+  background: rgba(243, 139, 168, 0.2);
+  border-radius: 6px;
+  padding: 2px 8px;
+  color: #f38ba8;
+  font-size: 14px;
+}
+
+/* Temas */
+.sb-themes {
+  background: rgba(30, 80, 160, 0.4);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.theme-btn {
+  background: rgba(100, 180, 255, 0.15);
+  border: 1px solid rgba(100, 180, 255, 0.25);
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: #cdd6f4;
+  font-size: 12px;
+}
+
+.theme-btn:hover {
+  background: rgba(100, 180, 255, 0.3);
+}
+
+.wallpaper {
+  min-width: 100%;
+}

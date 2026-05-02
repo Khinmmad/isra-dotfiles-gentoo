@@ -1,0 +1,109 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 20,
+
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+
+  "modules-center": [
+    "pulseaudio",
+    "network",
+    "cpu",
+    "memory",
+    "temperature",
+    "battery",
+    "tray"    
+  ],
+
+  "modules-right": [
+    "custom/music",
+    "custom/power",
+    "clock"
+  ],
+
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "󰙯",
+      "7": "󰊗",
+      "8": "󰖟",
+      "9": "󰘓",
+      "10": "󰍹"
+    }
+  },
+
+"clock": {
+    "format": "{:%I:%M %p}",
+    "format-alt": "{:%A, %d %B %Y}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+        "mode": "month",
+        "mode-mon-col": 3,
+        "weeks-pos": "left",
+        "on-scroll": 1,
+        "format": {
+            "months": "<span color='#cdd6f4'><b>{}</b></span>",
+            "days": "<span color='#cdd6f4'>{}</span>",
+            "weeks": "<span color='#89b4fa'><b>W{}</b></span>",
+            "weekdays": "<span color='#89dceb'><b>{}</b></span>",
+            "today": "<span color='#f38ba8'><b><u>{}</u></b></span>"
+        }
+    },
+    "actions": {
+        "on-click-right": "mode",
+        "on-scroll-up": "shift_up",
+        "on-scroll-down": "shift_down"
+    }
+},
+
+"clock": {
+  "format": "{:%I:%M %p}",
+  "tooltip-format": "{:%A, %d %B %Y}"
+},
+
+"memory": {
+  "format": "RAM {}%"
+},
+
+"network": {
+  "format-wifi": "󰤨 {signalStrength}%",
+  "format-ethernet": "󰈀",
+  "format-disconnected": "󰤭",
+  "tooltip-format": "{essid}",
+  "on-click": "ronema"
+},
+
+"temperature": {
+  "format": " {temperatureC}°C",
+  "critical-threshold": 80
+},
+
+"battery": {
+  "format": "{capacity}%"
+},
+
+"custom/power": {
+  "format": "⏻",
+  "tooltip": false,
+  "on-click": "~/.config/hypr/scripts/power-menu.sh"
+},
+
+"custom/music": {
+    "exec": "~/.config/waybar/scripts/music.sh",
+    "interval": 2,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "on-click-middle": "playerctl previous",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+    "tooltip": false
+}
+
+}

@@ -1,0 +1,165 @@
+(defvar vol-visible false)
+
+(defpoll volume :interval "1s"
+  "~/.config/eww/volume.sh get")
+
+(defwidget volume-slider []
+  (box :class "volume-box" :orientation "v" :space-evenly false :spacing 10
+    (box :orientation "h" :space-evenly false :spacing 10
+      (label :class "vol-icon" :text "󰕿")
+      (scale :class "vol-slider"
+             :value volume
+             :min 0 :max 100
+             :onchange "~/.config/eww/volume.sh set {}")
+      (label :class "vol-icon" :text "󰕾"))
+    (label :class "vol-title" :text "Salida")
+    (box :class "devices" :orientation "v" :space-evenly false
+      (button :class "device-btn" :onclick "" "󰓃  Bocinas")
+      (button :class "device-btn" :onclick "" "󰍰  HDMI"))))
+
+(defwindow volume-widget
+  :monitor 0
+  :geometry (geometry :x "20px" :y "80px"
+                      :width "320px" :height "300px"
+                      :anchor "top right")
+  :stacking "overlay"
+  :exclusive false
+  :focusable true
+  (volume-slider))
+
+(defpoll music-title :interval "2s" "~/.config/eww/scripts/music-info.sh title")
+(defpoll music-artist :interval "2s" "~/.config/eww/scripts/music-info.sh artist")
+(defpoll music-status :interval "1s" "~/.config/eww/scripts/music-info.sh status")
+(defpoll music-progress :interval "1s" "~/.config/eww/scripts/music-info.sh progress")
+(defpoll music-cover :interval "2s" "~/.config/eww/scripts/music-info.sh cover")
+(defpoll music-volume :interval "1s" "~/.config/eww/scripts/music-info.sh volume")
+
+(defwidget music-player []
+  (box :class "music-box" :orientation "v" :space-evenly false :spacing 12
+    ; Portada + info
+    (box :orientation "h" :space-evenly false :spacing 16
+      (image :path music-cover :image-width 80 :image-height 80 :class "cover")
+      (box :orientation "v" :space-evenly false :spacing 4 :valign "center"
+        (label :class "music-title" :text music-title :limit-width 25 :wrap false)
+        (label :class "music-artist" :text music-artist :limit-width 25 :wrap false)))
+    ; Barra de progreso
+    (scale :class "music-progress"
+           :value music-progress
+           :min 0 :max 100
+           :onchange "")
+    ; Controles
+    (box :orientation "h" :halign "center" :space-evenly true :spacing 8
+      (button :class "ctrl-btn" :onclick "playerctl previous" "󰒮")
+      (button :class "ctrl-btn play-btn"
+              :onclick "playerctl play-pause"
+              {music-status == "Playing" ? "󰏤" : "󰐊"})
+      (button :class "ctrl-btn" :onclick "playerctl next" "󰒭"))
+    ; Volumen
+    (box :orientation "h" :space-evenly false :spacing 8
+      (label :class "vol-icon" :text "󰕿")
+      (scale :class "vol-slider"
+             :value music-volume
+             :min 0 :max 100
+             :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%")
+      (label :class "vol-icon" :text "󰕾"))))
+
+(defwindow music-widget
+  :monitor 0
+  :geometry (geometry :x "-20px" :y "40px"
+                      :width "320px" :height "280px"
+                      :anchor "top right")
+  :stacking "overlay"
+  :exclusive false
+  :focusable true
+  (music-player))
+
+  ;; ============ SIDEBAR ============
+
+(defpoll weather-temp :interval "10m" "~/.config/eww/scripts/weather.sh temp")
+(defpoll weather-desc :interval "10m" "~/.config/eww/scripts/weather.sh desc")
+(defpoll weather-icon :interval "10m" "~/.config/eww/scripts/weather.sh icon")
+(defpoll weather-wind :interval "10m" "~/.config/eww/scripts/weather.sh wind")
+(defpoll weather-humidity :interval "10m" "~/.config/eww/scripts/weather.sh humidity")
+
+(defpoll sb-time :interval "1s" "date '+%H:%M'")
+(defpoll sb-date :interval "60s" "date '+%A, %d %B'")
+(defpoll sb-notifs :interval "3s" "~/.config/eww/scripts/notifications.sh get")
+
+;; Clima widget
+(defwidget weather-widget []
+  (box :class "sb-weather" :orientation "v" :space-evenly false :spacing 8
+    (box :orientation "h" :space-evenly false :spacing 10
+      (label :class "weather-icon" :text weather-icon)
+      (box :orientation "v" :space-evenly false
+        (label :class "weather-temp" :text "${weather-temp}°C")
+        (label :class "weather-desc" :text weather-desc)))
+    (box :orientation "h" :space-evenly true
+      (label :class "weather-detail" :text "💧 ${weather-humidity}")
+      (label :class "weather-detail" :text "💨 ${weather-wind}"))))
+
+;; Notificaciones widget
+(defwidget notif-widget []
+  (box :class "sb-notifs" :orientation "v" :space-evenly false :spacing 6
+    (box :orientation "h" :space-evenly false :halign "fill"
+      (label :class "sb-section-title" :text "󰂚 Notificaciones" :halign "start" :hexpand true)
+      (button :class "sb-clear-btn" :onclick "~/.config/eww/scripts/notifications.sh clear" "󰗩"))
+    (for notif in {split(sb-notifs, "\n")}
+      (box :class "notif-item" :orientation "v" :space-evenly false
+        (label :class "notif-title" :text {split(notif, "|")[0]} :halign "start" :limit-width 30)
+        (label :class "notif-body" :text {split(notif, "|")[1]} :halign "start" :limit-width 35)))))
+
+;; Selector de temas
+(defwidget theme-widget []
+  (box :class "sb-themes" :orientation "v" :space-evenly false :spacing 8
+    (label :class "sb-section-title" :text "󰔯 Temas")
+    (box :orientation "h" :space-evenly true :spacing 6
+      (button :class "theme-btn catppuccin"
+              :onclick "~/.config/eww/scripts/theme-switcher.sh gtk-catppuccin"
+              "🐱 Catppuccin")
+      (button :class "theme-btn tokyo"
+              :onclick "~/.config/eww/scripts/theme-switcher.sh gtk-tokyo"
+              "🌙 Tokyo"))
+    (box :orientation "h" :space-evenly true :spacing 6
+      (button :class "theme-btn rofi6"
+              :onclick "~/.config/eww/scripts/theme-switcher.sh rofi-type6"
+              "󰀬 Rofi 6")
+      (button :class "theme-btn rofi7"
+              :onclick "~/.config/eww/scripts/theme-switcher.sh rofi-type7"
+              "󰀬 Rofi 7"))
+    (button :class "theme-btn wallpaper"
+            :onclick "~/.config/eww/scripts/theme-switcher.sh wallpaper"
+            "🖼 Wallpaper")))
+
+;; Sidebar principal
+(defwidget sidebar []
+  (box :class "sidebar-box" :orientation "v" :space-evenly false :spacing 16
+    ;; Hora y fecha
+    (box :class "sb-time-box" :orientation "v" :space-evenly false :spacing 4
+      (label :class "sb-time" :text sb-time)
+      (label :class "sb-date" :text sb-date))
+    ;; Separador
+    (box :class "sb-separator")
+    ;; Clima
+    (weather-widget)
+    ;; Separador
+    (box :class "sb-separator")
+    ;; Música
+    (music-player)
+    ;; Separador
+    (box :class "sb-separator")
+    ;; Notificaciones
+    (notif-widget)
+    ;; Separador
+    (box :class "sb-separator")
+    ;; Temas
+    (theme-widget)))
+
+(defwindow sidebar-widget
+  :monitor 0
+  :geometry (geometry :x "0px" :y "0px"
+                      :width "280px" :height "100%"
+                      :anchor "top left")
+  :stacking "overlay"
+  :exclusive true
+  :focusable true
+  (sidebar))
